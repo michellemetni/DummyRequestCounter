@@ -77,7 +77,7 @@ jobs:
 
       - name: Test Docker container
         run: |
-          docker run -d -p 8000:8000 --name test_container my-fastapi-app:latest
+          docker run -d -p 8000:8000 --name test_container dummyrequestcounter-web:latest
           sleep 5
           for i in {1..5}; do
             curl -f http://localhost:8000 && break
@@ -105,5 +105,5 @@ jobs:
 
       - name: Push Docker image
         run: |
-          docker tag my-fastapi-app:latest ${{ secrets.DOCKER_USERNAME }}/my-fastapi-app:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/my-fastapi-app:latest
+          docker tag dummyrequestcounter-web:latest ${{ secrets.DOCKER_USERNAME }}/dummyrequestcounter-web:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/dummyrequestcounter-web:latest
