@@ -73,7 +73,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t my-fastapi-app:latest .
+        run: docker build -t dummyrequestcounter-web:latest .
 
       - name: Test Docker container
         run: |
