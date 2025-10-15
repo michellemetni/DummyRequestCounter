@@ -2,6 +2,7 @@ from fastapi.testclient import TestClient
 from unittest.mock import MagicMock
 from app.app import app, redis  # note the extra ".app"
 
+
 def test_hello_endpoint(monkeypatch):
     # Create a fake Redis instance
     mock_redis = MagicMock()
@@ -19,3 +20,4 @@ def test_hello_endpoint(monkeypatch):
 
     # Check that incr() was called (page counter increment)
     mock_redis.incr.assert_called_with("hits")
+
