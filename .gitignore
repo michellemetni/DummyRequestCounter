@@ -1,21 +1,11 @@
-# Python
+#python
 __pycache__/
 *.py[cod]
 *$py.class
-*.pyo
-*.pyd
-.Python
 *.so
-
-# Virtual environments
-.venv/
-venv/
-env/
-ENV/
-pip-wheel-metadata/
-
-# Distribution / packaging
+.Python
 build/
+develop-eggs/
 dist/
 downloads/
 eggs/
@@ -30,32 +20,14 @@ wheels/
 .installed.cfg
 *.egg
 
-# PyInstaller
-*.manifest
-*.spec
+# Virtual environments
+venv/
+env/
+ENV/
 
-# Unit test / coverage
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-htmlcov/
-.pytest_cache/
-
-# Logs
-*.log
-
-# Flask/Django / app caches
-instance/
-.webassets-cache
-
-# IDE / editors
+# IDE
 .vscode/
 .idea/
-*.sublime-project
-*.sublime-workspace
 *.swp
 *.swo
 
@@ -63,15 +35,13 @@ instance/
 .DS_Store
 Thumbs.db
 
-# Env files / secrets
+# Environment & secrets
 .env
-.env.*
-secrets.yml
+*.env
 
-# Docker
+# Logs
+*.log
+
+# Docker / Compose
 docker-compose.override.yml
 .docker/
-**/.dockerignore
-
-# Misc
-node_modules/

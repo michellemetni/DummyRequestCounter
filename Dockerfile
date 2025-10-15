@@ -1,16 +1,24 @@
-FROM python:3.12-slim
+# Use an official Python runtime
+FROM python:3.11-slim
 
-WORKDIR /app
+# Create app directory
+WORKDIR /code
 
-COPY requirements.txt /app/
-RUN pip install --no-cache-dir --upgrade pip \
+# Install build deps then runtime deps (small image)
+COPY requirements.txt /code/
+RUN pip install --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
 
-COPY app.py /app/
+# Copy project
+COPY . /code
 
-EXPOSE 8000
+# Set env (avoid buffered outputs) aam bekhteri3 a new env variable esma pythonbuffered de valeur 1
+ENV PYTHONUNBUFFERED=1 
 
-ENV REDIS_HOST=redis
-ENV REDIS_PORT=6379
+# Default port - can be overridden by docker-compose env
+ENV APP_PORT=8000
 
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run uvicorn. Note: module is app.app:app (repo root contains folder `app`)
+# hon bi alli3 bas aamil  docker build 
+# l container ha yetsama3 aa port 8000
+CMD ["uvicorn", "app.app:app", "--host", "0.0.0.0", "--port", "8000"]

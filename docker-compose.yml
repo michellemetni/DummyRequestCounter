@@ -1,30 +1,43 @@
+version: "3.9"
+
 services:
-  app:
-    build: .
-    container_name: dummy_app
+  redis: #redis lal database so aam baamil container lal database 
+    image: redis:7-alpine
+    restart: unless-stopped
     ports:
-      - "8000:8000"
+      # maps host ${REDIS_PORT:-6379} to container 6379
+      - "${REDIS_PORT:-6379}:6379" # i am maping kelchi byousal aa port 6379 bi hawelo la port 6379
+    volumes: # iza bade sayyiv osas men l docker container, bas otfi eno lezim yeb2a l data, bi volumes bhat where the data is stored. 
+      - redis-data:/data
+    networks:
+      - my-network #connect redis to the network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web: # the web hiye l api app
+    build: .
+    restart: unless-stopped
+    # Mount code for live editing (optional, remove in prod)
+    volumes:
+      - ./:/code
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    environment:
+      # Service-level env default; can be overridden with .env or host env
+      - REDIS_HOST=redis
+      - REDIS_PORT=${REDIS_PORT:-6379}
+      - APP_PORT=${APP_PORT:-8000}
     depends_on:
       - redis
-      - conditions: service_healthy
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
     networks:
-      - elsa_network
-
-  redis:
-    image: "redis:7.0-alpine"
-    container_name: dummy_redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
-    networks:
-      - elsa_network
+      - my-network #connect web to the network
 
 volumes:
-  redis_data:
+  redis-data:
 
 networks:
-  elsa_network:
+  my-network: #name of the network
+    driver: bridge #default for container to container communication
