@@ -1,4 +1,3 @@
-# tests/test_app.py
 from fastapi.testclient import TestClient
 from unittest.mock import MagicMock
 from app.app import app, redis  # note the extra ".app"
