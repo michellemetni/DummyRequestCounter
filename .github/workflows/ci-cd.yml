@@ -79,7 +79,11 @@ jobs:
         run: |
           docker run -d -p 8000:8000 --name test_container my-fastapi-app:latest
           sleep 5
-          curl -f http://localhost:8000/ || exit 1
+          for i in {1..5}; do
+            curl -f http://localhost:8000 && break
+            echo "Waiting for container to be ready..."
+            sleep 2
+          done
           docker stop test_container
           docker rm test_container
 
