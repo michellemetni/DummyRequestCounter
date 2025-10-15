@@ -57,7 +57,7 @@ jobs:
         run: python -m pytest tests/ -v
 
   # ---------------------
-  # 3️⃣ Build and deploy Docker Image
+  # 3️⃣ Build and deploy 
   # ---------------------
   build-and-deploy:
     runs-on: ubuntu-latest
