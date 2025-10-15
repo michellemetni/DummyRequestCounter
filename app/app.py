@@ -11,7 +11,10 @@ REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
 
 redis = Redis(host=REDIS_HOST, port=REDIS_PORT)
 
+
 @app.get("/")
+
+
 def hello():
     redis.incr('hits')
     hits = redis.get('hits').decode('utf-8')
